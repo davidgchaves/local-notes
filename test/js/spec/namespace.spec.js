@@ -10,4 +10,8 @@ describe("Namespace", function () {
   it("initializes the 'Collections' property in the 'App' object", function () {
     expect(App).to.include.key("Collections");
   });
+
+  it("initializes the 'Models' property in the 'App' object", function () {
+    expect(App).to.include.key('Models');
+  });
 });
