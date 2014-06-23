@@ -26,4 +26,8 @@ describe("Namespace", function () {
   it("initializes the 'Views' property in the 'App' object", function () {
     expect(App).to.include.key('Views');
   });
+
+  it("provides the 'app' object", function () {
+    expect(app).to.be.an("object");
+  });
 });
