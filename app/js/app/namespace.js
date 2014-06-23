@@ -2,8 +2,7 @@
 // Set up global application namespace using object literals.
 //
 // For more on JavaScript namespacing, see:
-// * http://rmurphey.com/blog/2009/10/15/
-//          using-objects-to-organize-your-code/
+// * http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/
 // * http://addyosmani.com/blog/essential-js-namespacing/
 // * http://addyosmani.github.com/backbone-fundamentals/#namespacing
 
