@@ -18,4 +18,8 @@ describe("Namespace", function () {
   it("initializes the 'Routers' property in the 'App' object", function () {
     expect(App).to.include.key('Routers');
   });
+
+  it("initializes the 'Templates' property in the 'App' object", function () {
+    expect(App).to.include.key('Templates');
+  });
 });
