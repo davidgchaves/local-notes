@@ -6,4 +6,8 @@ describe("Namespace", function () {
   it("initializes the 'Config' property in the 'App' object", function () {
     expect(App).to.include.key("Config");
   });
+
+  it("initializes the 'Collections' property in the 'App' object", function () {
+    expect(App).to.include.key("Collections");
+  });
 });
