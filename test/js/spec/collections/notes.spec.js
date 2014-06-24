@@ -8,5 +8,12 @@ describe("App.Collections.Notes", function () {
 
       expect(notes).to.be.ok;
     });
+
+    it("has no notes in it", function () {
+      var notes = new App.Collections.Notes();
+      notes.localStorage._clear();
+
+      expect(notes).to.have.length(0);
+    });
   });
 });
