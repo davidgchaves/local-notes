@@ -19,5 +19,16 @@ describe("App.Collections.Notes", function () {
 
       expect(notes).to.have.length(0);
     });
+
+    it("has no notes after a fetch", function (done) {
+      var notes = createEmptyNotesCollectionAndClearLocalStorage();
+
+      notes.once("reset", function () {
+        expect(notes).to.have.length(0);
+        done();
+      });
+
+      notes.fetch({ reset: true });
+    });
   });
 });
