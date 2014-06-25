@@ -42,4 +42,27 @@ describe("App.Collections.Notes", function () {
       expect(notes).to.have.length(1);
     });
   });
+
+  describe("an already populated notes collection", function () {
+
+    function createOneNoteNotesCollectionAndClearLocalStorage () {
+      var notes = new App.Collections.Notes({
+        title: "1st Note",
+        text: "This is our first note in the collection"
+      });
+      notes.localStorage._clear();
+      return notes;
+    }
+
+    it("can create a new note", function () {
+      var notes = createOneNoteNotesCollectionAndClearLocalStorage();
+
+      notes.create({
+        title: "2nd Note",
+        text: "This is our second note in the collection"
+      });
+
+      expect(notes).to.have.length(2);
+    });
+  });
 });
