@@ -64,5 +64,16 @@ describe("App.Collections.Notes", function () {
 
       expect(notes).to.have.length(2);
     });
+
+    it("can shift (remove) the first note", function (done) {
+      var notes = createOneNoteNotesCollectionAndClearLocalStorage();
+
+      notes.once("remove", function () {
+        expect(notes).to.have.length(0);
+        done();
+      });
+
+      notes.shift();
+    });
   });
 });
