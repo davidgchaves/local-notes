@@ -1,0 +1,36 @@
+describe("App.Views.NoteView", function () {
+
+  function createAndSetupTheTestFixture(that) {
+    that.$fixture = $("<div id='note-view-fixture'></div>");
+    that.$fixture.empty().appendTo($("#fixtures"));
+  }
+
+  function createViewToTriggerEmtpyNoteRendering(that) {
+    that.viewForEmptyNote = new App.Views.NoteView({
+      el: that.$fixture,
+      model: new App.Models.Note()
+    });
+  }
+
+  function destroyTheNoteToAlsoDestroyTheView(that) {
+    that.viewForEmptyNote.model.destroy();
+  }
+
+  it("can render an empty note", function () {
+    var $noteTitle, $noteText;
+
+    createAndSetupTheTestFixture(this);
+    createViewToTriggerEmtpyNoteRendering(this);
+
+    $noteTitle = $("#pane-title");
+    $noteText = $("#pane-text");
+
+    expect($noteTitle.text()).to.equal("");
+    expect($noteTitle.prop("tagName").toLowerCase()).to.equal("h2");
+
+    expect($noteText.text()).to.equal("Edit your note!");
+    expect($noteText.html()).to.contain("<p><em>Edit your note!</em></p>");
+
+    destroyTheNoteToAlsoDestroyTheView(this);
+  });
+});
