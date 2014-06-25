@@ -2,6 +2,11 @@ describe("App.Views.NoteNav", function () {
 
   describe("when clicking on the view menu bar item", function () {
 
+    beforeEach(function () {
+      defineFixture(this);
+      wireFixtureToView(this);
+    });
+
     function defineFixture(that) {
       that.$fixture = $(
         "<ul id='note-nav'>" +
@@ -18,8 +23,6 @@ describe("App.Views.NoteNav", function () {
 
     it("fires the nav:view event", function () {
       var navViewSpy = sinon.spy();
-      defineFixture(this);
-      wireFixtureToView(this);
       this.view.on({ "nav:view": navViewSpy });
 
       this.$fixture.find(".note-view").click();
@@ -29,8 +32,6 @@ describe("App.Views.NoteNav", function () {
 
     it("fires the nav:update:view event", function () {
       var navUpdateViewSpy = sinon.spy();
-      defineFixture(this);
-      wireFixtureToView(this);
       this.view.on({ "nav:update:view": navUpdateViewSpy });
 
       this.$fixture.find(".note-view").click();
@@ -40,8 +41,6 @@ describe("App.Views.NoteNav", function () {
 
     it("does not fire edit or delete events", function () {
       var dontFireMeSpy = sinon.spy();
-      defineFixture(this);
-      wireFixtureToView(this);
       this.view.on({
         "nav:edit nav:update:edit": dontFireMeSpy,
         "nav:delete nav:update:delete": dontFireMeSpy
