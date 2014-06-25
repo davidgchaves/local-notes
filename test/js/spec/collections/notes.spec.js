@@ -30,5 +30,16 @@ describe("App.Collections.Notes", function () {
 
       notes.fetch({ reset: true });
     });
+
+    it("can create a new note", function () {
+      var notes = createEmptyNotesCollectionAndClearLocalStorage();
+
+      notes.create({
+        title: "New Note",
+        text: "This is our first note in the collection"
+      });
+
+      expect(notes).to.have.length(1);
+    });
   });
 });
