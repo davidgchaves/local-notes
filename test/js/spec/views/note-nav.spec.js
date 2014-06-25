@@ -26,5 +26,16 @@ describe("App.Views.NoteNav", function () {
 
       expect(navViewSpy).to.have.been.calledOnce;
     });
+
+    it("fires the nav:update:view event", function () {
+      var navUpdateViewSpy = sinon.spy();
+      defineFixture(this);
+      wireFixtureToView(this);
+      this.view.on({ "nav:update:view": navUpdateViewSpy });
+
+      this.$fixture.find(".note-view").click();
+
+      expect(navUpdateViewSpy).to.have.been.calledOnce;
+    });
   });
 });
