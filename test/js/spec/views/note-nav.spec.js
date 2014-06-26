@@ -104,5 +104,17 @@ describe("App.Views.NoteNav", function () {
 
       expect(navUpdateDeleteSpy).to.have.been.calledOnce;
     });
+
+    it("does not fire view or edit events", function () {
+      var dontFireMeSpy = sinon.spy();
+      this.view.on({
+        "nav:view nav:update:view": dontFireMeSpy,
+        "nav:edit nav:update:edit": dontFireMeSpy
+      });
+
+      this.$fixture.find(".note-delete").click();
+
+      expect(dontFireMeSpy).to.not.have.been.called;
+    });
   });
 });
