@@ -1,25 +1,25 @@
 describe("App.Views.NoteNav", function () {
 
-  describe("when clicking on the view menu bar item", function () {
-
-    beforeEach(function () {
-      defineFixture(this);
-      wireFixtureToView(this);
-    });
-
-    function defineFixture(that) {
-      that.$fixture = $(
-        "<ul id='note-nav'>" +
-          "<li class='note-view'></li>" +
-          "<li class='note-edit'></li>" +
-          "<li class='note-delete'></li>" +
-        "</ul>"
+  function defineFixture(that) {
+    that.$fixture = $(
+      "<ul id='note-nav'>" +
+      "<li class='note-view'></li>" +
+      "<li class='note-edit'></li>" +
+      "<li class='note-delete'></li>" +
+      "</ul>"
       );
-    }
+  }
 
-    function wireFixtureToView(that) {
-      that.view = new App.Views.NoteNav({ el: that.$fixture });
-    }
+  function wireFixtureToView(that) {
+    that.view = new App.Views.NoteNav({ el: that.$fixture });
+  }
+
+  beforeEach(function () {
+    defineFixture(this);
+    wireFixtureToView(this);
+  });
+
+  describe("when clicking on the view menu bar item", function () {
 
     it("fires the nav:view event", function () {
       var navViewSpy = sinon.spy();
@@ -49,6 +49,18 @@ describe("App.Views.NoteNav", function () {
       this.$fixture.find(".note-view").click();
 
       expect(dontFireMeSpy).to.not.have.been.called;
+    });
+  });
+
+  describe("when clicking on the edit menu bar item", function () {
+
+    it("fires the nav:edit event", function () {
+      var navEditSpy = sinon.spy();
+      this.view.on({ "nav:edit": navEditSpy });
+
+      this.$fixture.find(".note-edit").click();
+
+      expect(navEditSpy).to.have.been.calledOnce;
     });
   });
 });
