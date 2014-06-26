@@ -123,5 +123,10 @@ describe("App.Views.NoteNav", function () {
     it("has no active navs by default", function () {
       expect(this.view.$("li.active")).to.have.length(0);
     });
+
+    it("updates nav on 'edit' click", function () {
+      this.view.$(".note-edit").click();
+      expect(this.view.$(".note-edit").attr("class")).to.include("active");
+    });
   });
 });
