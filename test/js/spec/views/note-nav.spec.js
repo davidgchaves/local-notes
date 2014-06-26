@@ -95,5 +95,14 @@ describe("App.Views.NoteNav", function () {
 
       expect(navDeleteSpy).to.have.been.calledOnce;
     });
+
+    it("fires the nav:update:delete event", function () {
+      var navUpdateDeleteSpy = sinon.spy();
+      this.view.on({ "nav:update:delete": navUpdateDeleteSpy });
+
+      this.$fixture.find(".note-delete").click();
+
+      expect(navUpdateDeleteSpy).to.have.been.calledOnce;
+    });
   });
 });
