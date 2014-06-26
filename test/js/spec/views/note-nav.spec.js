@@ -117,4 +117,11 @@ describe("App.Views.NoteNav", function () {
       expect(dontFireMeSpy).to.not.have.been.called;
     });
   });
+
+  describe("menu bar display", function () {
+
+    it("has no active navs by default", function () {
+      expect(this.view.$("li.active")).to.have.length(0);
+    });
+  });
 });
