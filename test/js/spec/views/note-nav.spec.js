@@ -84,4 +84,16 @@ describe("App.Views.NoteNav", function () {
       expect(dontFireMeSpy).to.not.have.been.called;
     });
   });
+
+  describe("when clicking on the delete menu bar item", function () {
+
+    it("fires the nav:delete event", function () {
+      var navDeleteSpy = sinon.spy();
+      this.view.on({ "nav:delete": navDeleteSpy });
+
+      this.$fixture.find(".note-delete").click();
+
+      expect(navDeleteSpy).to.have.been.calledOnce;
+    });
+  });
 });
