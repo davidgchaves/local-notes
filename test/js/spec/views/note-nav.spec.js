@@ -62,5 +62,14 @@ describe("App.Views.NoteNav", function () {
 
       expect(navEditSpy).to.have.been.calledOnce;
     });
+
+    it("fires the nav:update:edit event", function () {
+      var navUpdateEditSpy = sinon.spy();
+      this.view.on({ "nav:update:edit": navUpdateEditSpy });
+
+      this.$fixture.find(".note-edit").click();
+
+      expect(navUpdateEditSpy).to.have.been.calledOnce;
+    });
   });
 });
