@@ -128,5 +128,10 @@ describe("App.Views.NoteNav", function () {
       this.view.$(".note-edit").click();
       expect(this.view.$(".note-edit").attr("class")).to.include("active");
     });
+
+    it("updates nav on 'edit' event", function () {
+      this.view.trigger("nav:update:edit");
+      expect(this.view.$(".note-edit").attr("class")).to.include("active");
+    });
   });
 });
