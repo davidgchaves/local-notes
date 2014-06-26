@@ -11,12 +11,17 @@ describe("App.Views.NoteNav", function () {
   }
 
   function wireFixtureToView(that) {
+    that.$fixture.appendTo($("#fixtures"));
     that.view = new App.Views.NoteNav({ el: that.$fixture });
   }
 
   beforeEach(function () {
     defineFixture(this);
     wireFixtureToView(this);
+  });
+
+  afterEach(function () {
+    this.view.remove();
   });
 
   describe("when clicking on the view menu bar item", function () {
@@ -125,23 +130,23 @@ describe("App.Views.NoteNav", function () {
     });
 
     it("updates nav on 'edit' click", function () {
-      this.view.$(".note-edit").click();
-      expect(this.view.$(".note-edit").attr("class")).to.include("active");
+      $(".note-edit").click();
+      expect($(".note-edit").attr("class")).to.include("active");
     });
 
     it("updates nav on 'edit' event", function () {
       this.view.trigger("nav:update:edit");
-      expect(this.view.$(".note-edit").attr("class")).to.include("active");
+      expect($(".note-edit").attr("class")).to.include("active");
     });
 
     it("updates nav on 'view' click", function () {
-      this.view.$(".note-view").click();
-      expect(this.view.$(".note-view").attr("class")).to.include("active");
+      $(".note-view").click();
+      expect($(".note-view").attr("class")).to.include("active");
     });
 
     it("updates nav on 'view' event", function () {
       this.view.trigger("nav:update:view");
-      expect(this.view.$(".note-view").attr("class")).to.include("active");
+      expect($(".note-view").attr("class")).to.include("active");
     });
   });
 });
