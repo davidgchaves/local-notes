@@ -187,5 +187,25 @@ describe("App.Views.Note", function () {
       expect($(".region-note").css("display")).to.not.equal("none");
       expect($(".region-notes").css("display")).to.equal("none");
     });
+
+    it("renders a default note view", function () {
+      var $title, $text;
+      setupAndWireRouterSpy(this);
+
+      this.view = new App.Views.Note({
+        el: this.$fixture,
+        model: new App.Models.Note()
+      }, {
+        nav: new Backbone.View(),
+        router: { navigate: this.routerSpy }
+      });
+
+      $title = $("#pane-title");
+      $text = $("#pane-text");
+      expect($title.text()).to.equal("");
+      expect($title.prop("tagName")).to.match(/h2/i);
+      expect($text.text()).to.equal("Edit your note!");
+      expect($text.html()).to.equal("<p><em>Edit your note!</em></p>");
+    });
   });
 });
