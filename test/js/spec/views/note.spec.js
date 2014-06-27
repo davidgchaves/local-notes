@@ -207,5 +207,23 @@ describe("App.Views.Note", function () {
       expect($text.text()).to.equal("Edit your note!");
       expect($text.html()).to.equal("<p><em>Edit your note!</em></p>");
     });
+
+    it("calls render() on model events", sinon.test(function () {
+      setupAndWireRouterSpy(this);
+      this.view = new App.Views.Note({
+        el: this.$fixture,
+        model: new App.Models.Note()
+      }, {
+        nav: new Backbone.View(),
+        router: { navigate: this.routerSpy }
+      });
+      this.spy(this.view, "render");
+
+      this.view.model.trigger("change");
+
+      expect(this.view.render)
+        .to.be.calledOnce.and
+        .to.have.returned(this.view);
+    }));
   });
 });
