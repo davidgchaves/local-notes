@@ -1,20 +1,5 @@
 describe("App.Views.Note", function () {
 
-  // This could be considered a canonical example about why you should TDD.
-  // The test-pain is so great that makes this whole testing thing completely worthless.
-  // The pain is buried in indirection and abstraction (beforeEach), so the spec is readable.
-  // 58 lines of code to test which view is displayed by default.... WTF!!!!!!
-  // The underlying problem?
-  //   1 - Take a look at the constructor in app/js/app/views/note.js --> 18 lines
-  //       This should be considered an anti-pattern... SRP anyone?
-  //   2 - I'm not sure if this problem is a Backbone design problem
-  //       or simply a result of a very poor designed app.
-  //   3 - Another thing to consider is that maybe this kind of behaviour should be tested
-  //       (aka driven-designed) anywhere else. Maybe from an acceptance test (Cucumber) ???
-  //
-  //  Anyway, this kind of test and corresponding constructor should never be written in production.
-  describe("view modes and actions", function () {
-
     function defineTopLevelFixture(that) {
       $("#fixtures").append($(
           "<div class='region-note' style='display: none;'></div>" +
@@ -74,6 +59,21 @@ describe("App.Views.Note", function () {
       clearTopLevelFixture(this);
     });
 
+  // This could be considered a canonical example about why you should TDD.
+  // The test-pain is so great that makes this whole testing thing completely worthless.
+  // The pain is buried in indirection and abstraction (beforeEach), so the spec is readable.
+  // 58 lines of code to test which view is displayed by default.... WTF!!!!!!
+  // The underlying problem?
+  //   1 - Take a look at the constructor in app/js/app/views/note.js --> 18 lines
+  //       This should be considered an anti-pattern... SRP anyone?
+  //   2 - I'm not sure if this problem is a Backbone design problem
+  //       or simply a result of a very poor designed app.
+  //   3 - Another thing to consider is that maybe this kind of behaviour should be tested
+  //       (aka driven-designed) anywhere else. Maybe from an acceptance test (Cucumber) ???
+  //
+  //  Anyway, this kind of test and corresponding constructor should never be written in production.
+  describe("view modes and actions", function () {
+
     it("displays 'view' by default", function () {
       setupAndWireRouterSpy(this);
 
@@ -125,6 +125,31 @@ describe("App.Views.Note", function () {
       expect(window.confirm)
         .to.have.been.calledOnce.and
         .to.have.been.calledWith("Delete note?");
+    }));
+  });
+
+  describe("when a note is deleted", function () {
+
+    function wipeOutView(that) {
+      that.view = null;
+    }
+
+    it("causes the App.Views.Note object to remove itself", sinon.test(function () {
+      setupAndWireRouterSpy(this);
+      this.view = new App.Views.Note({
+        el: this.$fixture,
+        model: new App.Models.Note()
+      }, {
+        nav: new Backbone.View(),
+        router: { navigate: this.routerSpy }
+      });
+      this.spy(this.view, "remove");
+
+      this.view.model.trigger("destroy");
+
+      expect(this.view.remove).to.be.calledOnce;
+
+      wipeOutView(this);
     }));
   });
 });
