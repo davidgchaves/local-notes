@@ -225,5 +225,31 @@ describe("App.Views.Note", function () {
         .to.be.calledOnce.and
         .to.have.returned(this.view);
     }));
+
+    describe("on changed data", function () {
+
+      function replaceAFormValueAndBlurToForceChanges() {
+        $("#input-text").val("# A Heading!");
+        $("#note-form-edit").blur();
+      }
+
+      it("calls render()", sinon.test(function () {
+        setupAndWireRouterSpy(this);
+        this.view = new App.Views.Note({
+          el: this.$fixture,
+          model: new App.Models.Note()
+        }, {
+          nav: new Backbone.View(),
+          router: { navigate: this.routerSpy }
+        });
+        this.spy(this.view, "render");
+
+        replaceAFormValueAndBlurToForceChanges();
+
+        expect(this.view.render)
+        .to.be.calledOnce.and
+        .to.have.returned(this.view);
+      }));
+    });
   });
 });
