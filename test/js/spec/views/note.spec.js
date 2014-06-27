@@ -250,6 +250,22 @@ describe("App.Views.Note", function () {
         .to.be.calledOnce.and
         .to.have.returned(this.view);
       }));
+
+      it("renders the new data", sinon.test(function () {
+        setupAndWireRouterSpy(this);
+        this.view = new App.Views.Note({
+          el: this.$fixture,
+          model: new App.Models.Note()
+        }, {
+          nav: new Backbone.View(),
+          router: { navigate: this.routerSpy }
+        });
+        this.spy(this.view, "render");
+
+        replaceAFormValueAndBlurToForceChanges();
+
+        expect($("#pane-text").html()).to.match(/<h1 id=".*?">A Heading!<\/h1>/);
+      }));
     });
   });
 });
