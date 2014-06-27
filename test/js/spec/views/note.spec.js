@@ -208,23 +208,26 @@ describe("App.Views.Note", function () {
       expect($text.html()).to.equal("<p><em>Edit your note!</em></p>");
     });
 
-    it("calls render() on model events", sinon.test(function () {
-      setupAndWireRouterSpy(this);
-      this.view = new App.Views.Note({
-        el: this.$fixture,
-        model: new App.Models.Note()
-      }, {
-        nav: new Backbone.View(),
-        router: { navigate: this.routerSpy }
-      });
-      this.spy(this.view, "render");
+    describe("on model events", function () {
 
-      this.view.model.trigger("change");
+      it("calls render()", sinon.test(function () {
+        setupAndWireRouterSpy(this);
+        this.view = new App.Views.Note({
+          el: this.$fixture,
+          model: new App.Models.Note()
+        }, {
+          nav: new Backbone.View(),
+          router: { navigate: this.routerSpy }
+        });
+        this.spy(this.view, "render");
 
-      expect(this.view.render)
+        this.view.model.trigger("change");
+
+        expect(this.view.render)
         .to.be.calledOnce.and
         .to.have.returned(this.view);
-    }));
+      }));
+    });
 
     describe("on changed data", function () {
 
