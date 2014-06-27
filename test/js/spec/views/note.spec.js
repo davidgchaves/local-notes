@@ -170,4 +170,22 @@ describe("App.Views.Note", function () {
       expect(this.view.noteView.remove).to.be.calledOnce;
     }));
   });
+
+  describe("note rendering", function () {
+
+    it("renders a note", function () {
+      setupAndWireRouterSpy(this);
+
+      this.view = new App.Views.Note({
+        el: this.$fixture,
+        model: new App.Models.Note()
+      }, {
+        nav: new Backbone.View(),
+        router: { navigate: this.routerSpy }
+      });
+
+      expect($(".region-note").css("display")).to.not.equal("none");
+      expect($(".region-notes").css("display")).to.equal("none");
+    });
+  });
 });
