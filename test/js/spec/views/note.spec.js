@@ -91,5 +91,22 @@ describe("App.Views.Note", function () {
       expect($("#note-pane-view").css("display")).to.not.equal("none");
       expect($("#note-pane-edit").css("display")).to.equal("none");
     });
+
+    it("displays 'edit' on 'update:edit' event", function () {
+      setupAndWireRouterSpy(this);
+      this.view = new App.Views.Note({
+        el: this.$fixture,
+        model: new App.Models.Note()
+      }, {
+        nav: new Backbone.View(),
+        router: { navigate: this.routerSpy }
+      });
+
+      this.view.trigger("update:edit");
+
+      expect(this.routerSpy).to.be.calledWithMatch(/edit$/);
+      expect($("#note-pane-edit").css("display")).to.not.equal("none");
+      expect($("#note-pane-view").css("display")).to.equal("none");
+    });
   });
 });
