@@ -108,5 +108,23 @@ describe("App.Views.Note", function () {
       expect($("#note-pane-edit").css("display")).to.not.equal("none");
       expect($("#note-pane-view").css("display")).to.equal("none");
     });
+
+    it("asks for confirmation when deleting a note", sinon.test(function () {
+      setupAndWireRouterSpy(this);
+      this.view = new App.Views.Note({
+        el: this.$fixture,
+        model: new App.Models.Note()
+      }, {
+        nav: new Backbone.View(),
+        router: { navigate: this.routerSpy }
+      });
+      this.stub(window, "confirm").returns(false);
+
+      this.view.deleteNote();
+
+      expect(window.confirm)
+        .to.have.been.calledOnce.and
+        .to.have.been.calledWith("Delete note?");
+    }));
   });
 });
