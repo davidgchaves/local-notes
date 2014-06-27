@@ -134,6 +134,10 @@ describe("App.Views.Note", function () {
       that.view = null;
     }
 
+    afterEach(function () {
+      wipeOutView(this);
+    });
+
     it("causes the App.Views.Note object to remove itself", sinon.test(function () {
       setupAndWireRouterSpy(this);
       this.view = new App.Views.Note({
@@ -148,8 +152,22 @@ describe("App.Views.Note", function () {
       this.view.model.trigger("destroy");
 
       expect(this.view.remove).to.be.calledOnce;
+    }));
 
-      wipeOutView(this);
+    it("causes the App.Views.NoteView object to remove itself", sinon.test(function () {
+      setupAndWireRouterSpy(this);
+      this.view = new App.Views.Note({
+        el: this.$fixture,
+        model: new App.Models.Note()
+      }, {
+        nav: new Backbone.View(),
+        router: { navigate: this.routerSpy }
+      });
+      this.spy(this.view.noteView, "remove");
+
+      this.view.model.trigger("destroy");
+
+      expect(this.view.noteView.remove).to.be.calledOnce;
     }));
   });
 });
