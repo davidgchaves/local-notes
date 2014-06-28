@@ -32,4 +32,20 @@ describe("App.Views.NotesItem", function () {
       removeViewNotesItem(this);
     }));
   });
+
+  describe("render", function () {
+
+    it("is invoked on model change event", sinon.test(function () {
+      var stubRouter = createStubRouter();
+      var realNote = createRealNote();
+      createViewNotesItemWith(this, realNote, stubRouter);
+      this.stub(this.view);
+
+      this.view.model.trigger("change");
+
+      expect(this.view.render).to.have.been.calledOnce;
+
+      removeViewNotesItem(this);
+    }));
+  });
 });
