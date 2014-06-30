@@ -98,5 +98,20 @@ describe("App.Views.NotesItem", function () {
         expect(this.stubRouterNavigation).to.be.calledWith("note/0/edit");
       });
     });
+
+    describe("on trash can button click", function () {
+
+      function preventModelFromActuallyBeenDestroyedWhenCalled(that) {
+        that.stub(that.view.model, "destroy");
+      }
+
+      it("destroys the underlying note model", sinon.test(function() {
+        preventModelFromActuallyBeenDestroyedWhenCalled(this);
+
+        this.view.$(".note-delete").click();
+
+        expect(this.view.model.destroy).to.be.calledOnce;
+      }));
+    });
   });
 });
