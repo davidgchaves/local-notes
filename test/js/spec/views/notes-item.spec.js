@@ -71,6 +71,20 @@ describe("App.Views.NotesItem", function () {
 
         removeViewNotesItem(this);
       });
+
+      it("navigates to the view note page", function() {
+        var stubRouterNavigation = createStubRouter();
+        var realNote = createRealNote();
+        createViewNotesItemWith(this, realNote, stubRouterNavigation);
+        //This is really important. It's wrong in the book!!!
+        renderViewNotesItem(this);
+
+        this.view.$(".note-view").click();
+
+        expect(stubRouterNavigation).to.be.calledWith("note/0/view");
+
+        removeViewNotesItem(this);
+      });
     });
   });
 });
