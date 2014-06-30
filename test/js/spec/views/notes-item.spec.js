@@ -48,4 +48,29 @@ describe("App.Views.NotesItem", function () {
       removeViewNotesItem(this);
     }));
   });
+
+  describe("actions", function () {
+
+    describe("on list item title click", function () {
+
+      // If you don't perform this step in the specs, they fail.
+      function renderViewNotesItem(that) {
+        that.view.render().$el;
+      }
+
+      it("calls the appropriate view", function() {
+        var stubRouterNavigation = createStubRouter();
+        var realNote = createRealNote();
+        createViewNotesItemWith(this, realNote, stubRouterNavigation);
+        //This is really important. It's wrong in the book!!!
+        renderViewNotesItem(this);
+
+        this.view.$(".note-view").click();
+
+        expect(stubRouterNavigation).to.be.calledOnce;
+
+        removeViewNotesItem(this);
+      });
+    });
+  });
 });
