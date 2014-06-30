@@ -58,32 +58,29 @@ describe("App.Views.NotesItem", function () {
         that.view.render().$el;
       }
 
-      it("calls the appropriate view", function() {
-        var stubRouterNavigation = createStubRouter();
+      beforeEach(function () {
+        this.stubRouterNavigation = createStubRouter();
         var realNote = createRealNote();
-        createViewNotesItemWith(this, realNote, stubRouterNavigation);
+        createViewNotesItemWith(this, realNote, this.stubRouterNavigation);
+
         //This is really important. It's wrong in the book!!!
         renderViewNotesItem(this);
+      });
 
-        this.view.$(".note-view").click();
-
-        expect(stubRouterNavigation).to.be.calledOnce;
-
+      afterEach(function () {
         removeViewNotesItem(this);
       });
 
-      it("navigates to the view note page", function() {
-        var stubRouterNavigation = createStubRouter();
-        var realNote = createRealNote();
-        createViewNotesItemWith(this, realNote, stubRouterNavigation);
-        //This is really important. It's wrong in the book!!!
-        renderViewNotesItem(this);
-
+      it("calls the appropriate view", function() {
         this.view.$(".note-view").click();
 
-        expect(stubRouterNavigation).to.be.calledWith("note/0/view");
+        expect(this.stubRouterNavigation).to.be.calledOnce;
+      });
 
-        removeViewNotesItem(this);
+      it("navigates to the view note page", function() {
+        this.view.$(".note-view").click();
+
+        expect(this.stubRouterNavigation).to.be.calledWith("note/0/view");
       });
     });
   });
