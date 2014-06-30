@@ -91,6 +91,12 @@ describe("App.Views.NotesItem", function () {
 
         expect(this.stubRouterNavigation).to.be.calledOnce;
       });
+
+      it("navigates to the edit note page", function() {
+        this.view.$(".note-edit").click();
+
+        expect(this.stubRouterNavigation).to.be.calledWith("note/0/edit");
+      });
     });
   });
 });
