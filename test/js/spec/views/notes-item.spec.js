@@ -51,25 +51,25 @@ describe("App.Views.NotesItem", function () {
 
   describe("actions", function () {
 
+    // If you don't perform this step in the specs, they fail.
+    function renderViewNotesItem(that) {
+      that.view.render().$el;
+    }
+
+    beforeEach(function () {
+      this.stubRouterNavigation = createStubRouter();
+      var realNote = createRealNote();
+      createViewNotesItemWith(this, realNote, this.stubRouterNavigation);
+
+      //This is really important. It's wrong in the book!!!
+      renderViewNotesItem(this);
+    });
+
+    afterEach(function () {
+      removeViewNotesItem(this);
+    });
+
     describe("on list item title click", function () {
-
-      // If you don't perform this step in the specs, they fail.
-      function renderViewNotesItem(that) {
-        that.view.render().$el;
-      }
-
-      beforeEach(function () {
-        this.stubRouterNavigation = createStubRouter();
-        var realNote = createRealNote();
-        createViewNotesItemWith(this, realNote, this.stubRouterNavigation);
-
-        //This is really important. It's wrong in the book!!!
-        renderViewNotesItem(this);
-      });
-
-      afterEach(function () {
-        removeViewNotesItem(this);
-      });
 
       it("calls the appropriate view", function() {
         this.view.$(".note-view").click();
@@ -81,6 +81,15 @@ describe("App.Views.NotesItem", function () {
         this.view.$(".note-view").click();
 
         expect(this.stubRouterNavigation).to.be.calledWith("note/0/view");
+      });
+    });
+
+    describe("on pencil button click", function () {
+
+      it("calls the appropriate view", function() {
+        this.view.$(".note-edit").click();
+
+        expect(this.stubRouterNavigation).to.be.calledOnce;
       });
     });
   });
